@@ -1,7 +1,14 @@
-import { BrowserRouter, Navigate, Route, Routes, } from 'react-router'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import { lazy, Suspense } from 'react'
 import { AuthLayout } from './auth/layout/AuthLayout'
 import { LoginPage } from './auth/pages/LoginPage'
 import { RegisterPage } from './auth/pages/RegisterPage'
+
+// import  ChatLayout  from './chat/layout/ChatLayout'
+const ChatLayout = lazy(() => sleep(1250).then(() => import('./chat/layout/ChatLayout')))
+
+import ChatPage from './chat/pages/ChatPage'
+import { sleep } from './lib/sleep'
 export const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -11,6 +18,18 @@ export const AppRouter = () => {
             <Route index element={<LoginPage />} />
             <Route path='/auth/register' element={<RegisterPage />} />
         </Route>
+
+        <Route path='/chat' element={
+          <Suspense fallback={<div className="flex justify-center items-center h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+          </div>}>
+            <ChatLayout />
+          </Suspense>
+        } >
+        <Route index element={<ChatPage />} />
+
+        </Route>
+
 
       {/* Rutas públicas */}
     <Route path="/" element={<Navigate to="/auth" />} />
