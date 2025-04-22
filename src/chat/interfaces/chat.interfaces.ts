@@ -13,6 +13,7 @@ export enum Plan {
     address: string;
     memberSince: Date;
     currentPlan: Plan;
+    lastBill: number;
   }
   
   export interface Message {

@@ -45,6 +45,7 @@ const fakeClients = {
       address: '',
       memberSince: new Date(),
       currentPlan: Plan.BASIC,
+      lastBill: 0,
     };
 
     fakeClients.setClient(client);
@@ -116,6 +117,7 @@ const clients: Client[] = [
     address: 'Calle Principal, San Pedro, San José',
     memberSince: new Date('2023-02-23'),
     currentPlan: Plan.BASIC,
+    lastBill: 50,
   },
   {
     id: 'C1-81678',
@@ -125,6 +127,7 @@ const clients: Client[] = [
     address: 'Avenida Central, Escazú, San José',
     memberSince: new Date('2022-10-20'),
     currentPlan: Plan.BASIC,
+    lastBill: 50,
   },
   {
     id: 'C1-60078',
@@ -134,6 +137,7 @@ const clients: Client[] = [
     address: '200m Este del Parque Central, Alajuela',
     memberSince: new Date('2024-01-17'),
     currentPlan: Plan.PRO,
+    lastBill: 75,
   },
   {
     id: 'C1-68195',
@@ -143,6 +147,7 @@ const clients: Client[] = [
     address: 'Residencial Los Arcos, Casa 15, Heredia',
     memberSince: new Date('2024-10-17'),
     currentPlan: Plan.PRO,
+    lastBill: 75,
   },
   {
     id: 'C1-72336',
@@ -152,6 +157,7 @@ const clients: Client[] = [
     address: 'Condominio Valle del Sol, Cartago',
     memberSince: new Date('2024-03-30'),
     currentPlan: Plan.BASIC,
+    lastBill: 50,
   },
   {
     id: 'C1-91234',
@@ -161,6 +167,7 @@ const clients: Client[] = [
     address: 'Barrio Los Yoses, San José',
     memberSince: new Date('2023-06-15'),
     currentPlan: Plan.PREMIUM,
+    lastBill: 100,
   },
   {
     id: 'C1-56789',
@@ -170,6 +177,7 @@ const clients: Client[] = [
     address: 'Curridabat, 300m Sur del Walmart',
     memberSince: new Date('2022-12-05'),
     currentPlan: Plan.ENTERPRISE,
+    lastBill: 150,
   },
   {
     id: 'C1-33456',
@@ -179,6 +187,7 @@ const clients: Client[] = [
     address: 'Residencial Monterán, Santa Ana',
     memberSince: new Date('2023-08-22'),
     currentPlan: Plan.PRO,
+    lastBill: 75,
   },
   {
     id: 'C1-12987',
@@ -188,6 +197,7 @@ const clients: Client[] = [
     address: 'Condominio Avalon, Tres Ríos',
     memberSince: new Date('2024-02-10'),
     currentPlan: Plan.PREMIUM,
+    lastBill: 100,
   },
   {
     id: 'C1-65432',
@@ -197,6 +207,7 @@ const clients: Client[] = [
     address: 'Pinares de Curridabat, Casa 78',
     memberSince: new Date('2023-04-28'),
     currentPlan: Plan.ENTERPRISE,
+    lastBill: 150,
   },
 ];
 

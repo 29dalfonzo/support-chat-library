@@ -28,7 +28,7 @@ export const AppRouter = () => {
             <ChatLayout />
           </Suspense>
         } >
-        <Route path=':chatId' element={<ChatPage />} />
+        <Route path=':clientId' element={<ChatPage />} />
         <Route index element={<NoChatSelected />} />
         </Route>
 
