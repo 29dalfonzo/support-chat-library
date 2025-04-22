@@ -7,8 +7,10 @@ import { RegisterPage } from './auth/pages/RegisterPage'
 // import  ChatLayout  from './chat/layout/ChatLayout'
 const ChatLayout = lazy(() => sleep(1250).then(() => import('./chat/layout/ChatLayout')))
 
-import ChatPage from './chat/pages/ChatPage'
+// import ChatPage from './chat/pages/ChatPage'
+const ChatPage = lazy(() =>  import('./chat/pages/ChatPage'))
 import { sleep } from './lib/sleep'
+const NoChatSelected = lazy(() =>  import('./chat/pages/NoChatSelected'))
 export const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -26,8 +28,8 @@ export const AppRouter = () => {
             <ChatLayout />
           </Suspense>
         } >
-        <Route index element={<ChatPage />} />
-
+        <Route path=':chatId' element={<ChatPage />} />
+        <Route index element={<NoChatSelected />} />
         </Route>
 
 
