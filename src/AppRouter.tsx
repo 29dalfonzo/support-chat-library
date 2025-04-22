@@ -10,6 +10,7 @@ const ChatLayout = lazy(() => sleep(1250).then(() => import('./chat/layout/ChatL
 // import ChatPage from './chat/pages/ChatPage'
 const ChatPage = lazy(() =>  import('./chat/pages/ChatPage'))
 import { sleep } from './lib/sleep'
+import { PrivateRoute } from './auth/components/PrivateRoute'
 const NoChatSelected = lazy(() =>  import('./chat/pages/NoChatSelected'))
 export const AppRouter = () => {
   return (
@@ -25,7 +26,9 @@ export const AppRouter = () => {
           <Suspense fallback={<div className="flex justify-center items-center h-screen">
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
           </div>}>
-            <ChatLayout />
+            <PrivateRoute isAuthenticated={true}>
+              <ChatLayout />
+            </PrivateRoute>
           </Suspense>
         } >
         <Route path=':clientId' element={<ChatPage />} />

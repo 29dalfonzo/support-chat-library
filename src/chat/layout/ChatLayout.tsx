@@ -13,7 +13,7 @@ export default function ChatLayout() {
         <div className="p-4 border-b">
           <div className="flex items-center gap-2">
             <div className="h-6 w-6 rounded-full bg-primary" />
-            <Link to="/">
+            <Link to="/chat">
             <span className="font-semibold">NexTalk</span>
             </Link>
           </div>
