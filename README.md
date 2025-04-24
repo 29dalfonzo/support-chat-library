@@ -1,6 +1,7 @@
 # NexTalk - Chat Support Library
 
-![NexTalk Preview](./preview.png)
+![NexTalk Preview](./src/assets/preview2.png)
+
 
 ## 🚀 Descripción
 
