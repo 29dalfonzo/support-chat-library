@@ -2,6 +2,7 @@
 
 ![NexTalk Preview](./src/assets/preview2.png)
 
+![Live version]([[./src/assets/preview2.png](https://chat-suport-rr-library.netlify.app/](https://chat-suport-rr-library.netlify.app/auth))
 
 ## 🚀 Descripción
 
