@@ -16,7 +16,7 @@ import { checkAuth } from './chat/fake/fake-data'
 const NoChatSelected = lazy(() =>  import('./chat/pages/NoChatSelected'))
 export const AppRouter = () => {
 
-  const {data: user, isLoading, isError, error} = useQuery({
+  const {data: user, isLoading} = useQuery({
     queryKey: ['user'],
     queryFn: () => {
       const token = localStorage.getItem('token') ?? ''
