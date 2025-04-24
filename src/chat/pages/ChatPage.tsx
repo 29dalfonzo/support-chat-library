@@ -4,12 +4,26 @@ import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Copy, Download, ThumbsUp, ThumbsDown, Send } from "lucide-react"
 import { useParams } from "react-router"
-import { useQuery } from "@tanstack/react-query"
-import { getClientMessages } from "../fake/fake-data"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { checkAuth, getClientMessages, sendMessage } from "../fake/fake-data"
 
 export default function ChatPage() {
   const { clientId } = useParams()
+  console.log(clientId)
   const [input, setInput] = useState("")
+  const queryClient = useQueryClient()
+
+
+  const {data:user} = useQuery({
+    queryKey: ['user'],
+    queryFn: () => {
+      const token = localStorage.getItem('token')
+      if (!token) return null
+      return checkAuth(token)
+    },
+    enabled: !!clientId,
+    staleTime: 1000 * 60 * 5, // 5 minute
+  })
 
   const {data: messages=[], isLoading} = useQuery({
     queryKey: ['messages', clientId],
@@ -18,6 +32,30 @@ export default function ChatPage() {
     staleTime: 1000 * 60 * 5, // 5 minute
   })
 
+  const {mutate: sendMessageMutation} = useMutation({
+    mutationFn:sendMessage,
+    onSuccess: (data) => {
+      console.log(data)
+      queryClient.invalidateQueries({ queryKey: ['messages', clientId] })
+      setInput('')
+    },
+    onError: (error) => {
+      console.log(error)
+    }
+  })
+
+  const handleSendMessage = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!input.trim()) return
+    sendMessageMutation({
+      clientId: clientId ?? '',
+      content: input,
+      createdAt: new Date(),
+      sender: 'agent',
+    })
+    setInput('')
+  }
+
   if (isLoading) return (
     <div className="flex justify-center items-center h-full">
       <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
@@ -25,9 +63,9 @@ export default function ChatPage() {
   )
 
   return (
-    <div className="flex-1 flex flex-col">
-      <ScrollArea className="flex-1 p-4">
-        <div className="space-y-4">
+    <div className="flex-1 flex flex-col h-[calc(100vh-120px)]">
+      <ScrollArea className="flex-1">
+        <div className="space-y-4 p-4">
           {messages.map((message, index) => (
             <div key={index} className="w-full">
               {message.sender === "agent" ? (
@@ -36,7 +74,7 @@ export default function ChatPage() {
                   <div className="h-8 w-8 rounded-full bg-primary flex-shrink-0" />
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium">NexTalk</span>
+                      <span className="text-sm font-medium">{user?.name}</span>
                       <span className="text-sm text-muted-foreground">{message.createdAt.toLocaleTimeString()}</span>
                     </div>
                     <div className="p-3 bg-muted/50 rounded-lg">
@@ -88,21 +126,32 @@ export default function ChatPage() {
           </div>
         )
       }
-      <div className="p-4 border-t">
-        <div className="flex items-center gap-2">
-          <Textarea
-            placeholder="Type a message as a customer"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="min-h-[44px] h-[44px] resize-none py-3"
-          />
-          <Button className="h-[44px] px-4 flex items-center gap-2">
-            <Send className="h-4 w-4" />
-            <span>Send</span>
-          </Button>
+      <div className="p-4 border-t bg-background">
+        <div className="flex items-center gap-2 w-full px-4">
+          <form onSubmit={handleSendMessage} className="flex items-center gap-2 w-full">
+            <Textarea
+              placeholder="Type a message as a customer"
+              rows={3}
+              value={input}
+              style={{ minWidth: '200px' }}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSendMessage(e as unknown as React.FormEvent<HTMLFormElement>);
+                }
+              }}
+              className="min-h-[50px] h-[50px] resize-none py-3 px-4 rounded-xl focus:ring-2 focus:ring-primary w-full"
+            />
+            <Button type="submit" size="lg" className="h-[50px] px-6 rounded-xl bg-primary hover:bg-primary/90 flex-shrink-0">
+              <Send className="h-5 w-5" />
+              <span className="ml-2 hidden md:inline">Send</span>
+            </Button>
+          </form>
         </div>
       </div>
     </div>
   )
 }
+
 
