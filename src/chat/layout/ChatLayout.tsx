@@ -22,6 +22,7 @@ export default function ChatLayout() {
     queryFn: () => {
       const token = localStorage.getItem('token')
       if (!token) return null
+      console.log(user)
       return checkAuth(token)
     },
     staleTime: 1000 * 60 * 5, // 5 minute
@@ -34,21 +35,23 @@ export default function ChatLayout() {
   }
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen overflow-hidden bg-background">
       {/* Sidebar */}
-      <div className="w-64 border-r bg-muted/10">
+      <div className="w-64 border-r bg-muted/10 flex flex-col">
         <div className="p-4 border-b">
           <div className="flex items-center gap-2">
             <div className="h-6 w-6 rounded-full bg-primary" />
             <Link to="/chat">
-            <span className="font-semibold">{user?.name}</span>
+              <span className="font-semibold">NexTalk</span>
             </Link>
           </div>
         </div>
-        <ContactList />
-        <div className="p-4 border-t">
+        <div className="flex-1 overflow-hidden">
+          <ContactList />
+        </div>
+        <div className="p-4 border-t mt-auto">
           <Button variant="ghost" size="sm" className="w-full" onClick={() => handleLogout()}>
-            <LogOut className="h-4 w-4" />
+            <LogOut className="h-4 w-4 mr-2" />
             Logout
           </Button>
         </div>
