@@ -2,7 +2,7 @@
 
 ![NexTalk Preview](./src/assets/preview2.png)
 
-![Live version](https://chat-suport-rr-library.netlify.app/auth)
+![Live Demo](https://chat-suport-rr-library.netlify.app/auth)
 
 ## 🚀 Descripción
 
@@ -123,7 +123,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.m
 
 ## 👥 Autores
 
-- Tu Nombre - [@tuusuario](https://github.com/tuusuario)
+- Daniel Alfonzo - [@29dalfonzo](https://github.com/29dalfonzo)
 
 ## 🙏 Agradecimientos
 
